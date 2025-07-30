@@ -8,7 +8,12 @@ export const useCalculations = (tablesData) => {
   // Calculate table sums whenever data changes
   const tableSums = useMemo(() => {
     if (!tablesData || !tablesData.tables) return {};
-    return MathOperations.calculateAllTableSums(tablesData.tables);
+    const sums = {};
+
+    Object.entries(tablesData.tables).forEach(([tableName, tableInfo]) => {
+      sums[tableName] = MathOperations.calculateTableSum(tableInfo.data || tableInfo);
+    });
+    return sums;
   }, [tablesData]);
 
   const updateExpression = (newExpression) => {

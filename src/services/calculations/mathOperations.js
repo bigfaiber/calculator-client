@@ -48,7 +48,6 @@ export class MathOperations {
       if (!/^[\d+\-*/().\s]+$/.test(processedExpression)) {
         throw new Error('Invalid characters in expression');
       }
-      console.log('Processed Expression:', processedExpression);
       // Evaluate the expression safely
 
 

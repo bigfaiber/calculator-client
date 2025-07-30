@@ -24,11 +24,11 @@ const LedgerCalculator = () => {
       
       <div className={styles.content}>
         <div className={styles.tablesSection}>
-          {data && data.tables && Object.entries(data.tables).map(([tableName, items]) => (
+          {data && data.tables && Object.entries(data.tables).map(([tableName, tableInfo]) => (
             <TableDisplay
               key={tableName}
               tableName={tableName}
-              items={items}
+              tableInfo={tableInfo}
               sum={tableSums[tableName]}
             />
           ))}

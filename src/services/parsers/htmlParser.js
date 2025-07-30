@@ -21,7 +21,11 @@ export class HtmlParser {
         
         if (table && table.tagName === 'TABLE') {
           const tableData = this.extractTableData(table);
-          tables[tableName] = tableData;
+          const tableStyles = this.extractTableStyles(header, table);
+          tables[tableName] = {
+            data: tableData,
+            styles: tableStyles
+          }
         }
       });
       
@@ -61,6 +65,56 @@ export class HtmlParser {
     });
     
     return rows;
+  }
+
+    static extractTableStyles(headerElement, tableElement) {
+    const styles = {
+      header: this.getInlineStyles(headerElement),
+      table: this.getInlineStyles(tableElement),
+      thead: {},
+      tbody: {},
+      th: {},
+      td: {}
+    };
+
+    const thead = tableElement.querySelector('thead');
+    if (thead) {
+      styles.thead = this.getInlineStyles(thead);
+      const thElements = thead.querySelectorAll('th');
+      if (thElements.length > 0) {
+        styles.th = this.getInlineStyles(thElements[0]);
+      }
+    }
+
+    const tbody = tableElement.querySelector('tbody');
+    if (tbody) {
+      styles.tbody = this.getInlineStyles(tbody);
+      const tdElements = tbody.querySelectorAll('td');
+      if (tdElements.length > 0) {
+        styles.td = this.getInlineStyles(tdElements[0]);
+      }
+    }
+
+    return styles;
+  }
+
+  static getInlineStyles(element) {
+    if (!element || !element.style) return {};
+
+    const styles = {};
+    const styleDeclaration = element.style;
+
+    for (let i = 0; i < styleDeclaration.length; i++) {
+      const property = styleDeclaration[i];
+      const value = styleDeclaration.getPropertyValue(property);
+      // Convert kebab-case to camelCase for React
+      const camelCaseProperty = property.replace(/-([a-z])/g, (match, letter) =>
+        letter.toUpperCase()
+      );
+      styles[camelCaseProperty] = value;
+    }
+
+    return styles;
   }
 
   /**

@@ -7,7 +7,6 @@ export class Base64Decoder {
   static decode(base64String) {
     try {
       // Clean the base64 string (remove any whitespace/newlines)
-      console.log("Decoding base64 string:", base64String);
       const cleanBase64 = base64String.replace(/\s/g, '');
       
       // Decode base64 to text
