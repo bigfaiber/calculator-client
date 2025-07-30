@@ -1,8 +1,9 @@
 # Steps to spin up the server
 
-1. npm i
-2. npm start
-3. when prompted which port to use because localhost:3000 is already in use by the server, hit enter to use 3001 or pick anyone preferred but make sure you run the backend on port 3000.
+1. Make sure backend is running on port 3000
+2. npm i
+3. npm start
+4. when prompted which port to use because localhost:3000 is already in use by the backend server, hit enter to use 3001 or pick anyone preferred.
 
 # Getting Started with Create React App
 
